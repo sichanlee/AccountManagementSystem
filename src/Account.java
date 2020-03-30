@@ -20,6 +20,14 @@ public class Account {
 		this.email = email;
 	}
 	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	public void printInfo() {
 		System.out.println("name:" + name + " id:" + id + " password:" + password + " email:" + email);
 	}
