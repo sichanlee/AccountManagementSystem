@@ -34,6 +34,7 @@ public class AccountManager {
 		
 		if (index >= 0) {
 			accounts.remove(index);
+			Account.numAccountsRegistered--;
 			System.out.println("the account" + websiteName + "is deleted");
 		}
 		else {
@@ -85,7 +86,8 @@ public class AccountManager {
 	
 	public void viewAccounts() {
 //		System.out.print("Website name:");
-//		String websiteName = input.next();	
+//		String websiteName = input.next();
+		System.out.println("# of registered accounts:" + Account.numAccountsRegistered);
 		for (int i = 0; i<accounts.size(); i++) {
 			accounts.get(i).printInfo();
 		}
