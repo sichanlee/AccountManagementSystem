@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Account.Account;
+import Account.TransportAccount;
+
 public class AccountManager {
 	ArrayList<Account> accounts = new ArrayList<Account>();
 	Scanner input;
@@ -9,16 +12,29 @@ public class AccountManager {
 	}
 	
 	public void addAccount() {
-		Account account = new Account();
-		System.out.print("Website name:");
-		account.name = input.next();
-		System.out.print("Account ID:");
-		account.id = input.next();
-		System.out.print("Account Password:");
-		account.password = input.next();
-		System.out.print("Account Email:");
-		account.email = input.next();
-		accounts.add(account);
+		int kind = 0;
+		Account account;
+		while (kind != 1 && kind != 2) {
+			System.out.print("1 for SearchEngine");
+			System.out.print("2 for Transport");
+			System.out.print("Select num for Account Kind between 1 and 2:");
+			kind = input.nextInt();
+			if (kind == 1) {
+				account = new Account();
+				account.getUserInput(input);
+				accounts.add(account);
+				break;
+			}
+			else if (kind == 2) {
+				account = new TransportAccount();
+				account.getUserInput(input);
+				accounts.add(account);
+				break;
+			}
+			else {
+				System.out.print("Select num for Account Kind between 1 and 2:");
+			}
+		}
 	}
 	
 	public void deleteAccount() {
@@ -26,7 +42,7 @@ public class AccountManager {
 		String websiteName = input.next();
 		int index = -1;
 		for (int i = 0; i<accounts.size(); i++) {
-			if (accounts.get(i).name.equals(websiteName)) {
+			if (accounts.get(i).getName().equals(websiteName)) {
 				index = i;
 				break;
 			}			
@@ -34,7 +50,6 @@ public class AccountManager {
 		
 		if (index >= 0) {
 			accounts.remove(index);
-			Account.numAccountsRegistered--;
 			System.out.println("the account" + websiteName + "is deleted");
 		}
 		else {
@@ -48,7 +63,7 @@ public class AccountManager {
 		String websiteName = input.next();	
 		for (int i = 0; i<accounts.size(); i++) {
 			Account account = accounts.get(i);
-			if (account.name.equals(websiteName)) {
+			if (account.getName().equals(websiteName)) {
 				int num = -1;
 				while (num != 5) {
 					System.out.println("** Account Info Edit Menu **");
@@ -61,19 +76,23 @@ public class AccountManager {
 					num = input.nextInt();
 					if (num == 1) {
 						System.out.print("Website name:");
-						account.name = input.next();
+						String name = input.next();
+						account.setName(name);
 					}
 					else if (num == 2) {
 						System.out.print("Account ID:");
-						account.id = input.next();
+						String id = input.next();
+						account.setId(id);
 					}
 					else if (num == 3) {
 						System.out.print("Account Password:");
-						account.password = input.next();
+						String password = input.next();
+						account.setPassword(password);
 					}
 					else if (num == 4) {
 						System.out.print("Account Email:");
-						account.email = input.next();
+						String email = input.next();
+						account.setEmail(email);
 					}
 					else {
 						continue;
@@ -87,7 +106,7 @@ public class AccountManager {
 	public void viewAccounts() {
 //		System.out.print("Website name:");
 //		String websiteName = input.next();
-		System.out.println("# of registered accounts:" + Account.numAccountsRegistered);
+		System.out.println("# of registered accounts:" + accounts.size());
 		for (int i = 0; i<accounts.size(); i++) {
 			accounts.get(i).printInfo();
 		}
