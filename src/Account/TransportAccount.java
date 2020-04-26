@@ -3,6 +3,10 @@ package Account;
 import java.util.Scanner;
 
 public class TransportAccount extends Account {
+	
+	public TransportAccount(AccountKind kind) {
+		super(kind);
+	}
 
 	public void getUserInput(Scanner input) {
 		System.out.print("Website name:");

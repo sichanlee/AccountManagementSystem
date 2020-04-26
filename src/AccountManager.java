@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Account.Account;
+import Account.AccountKind;
+import Account.BankAccount;
 import Account.TransportAccount;
 
 public class AccountManager {
@@ -15,18 +17,25 @@ public class AccountManager {
 		int kind = 0;
 		Account account;
 		while (kind != 1 && kind != 2) {
-			System.out.print("1 for SearchEngine");
-			System.out.print("2 for Transport");
-			System.out.print("Select num for Account Kind between 1 and 2:");
+			System.out.println("1 for SearchEngine");
+			System.out.println("2 for Transport");
+			System.out.println("3 for Bank");
+			System.out.print("Select num 1, 2 or 3 for Account Kind:");
 			kind = input.nextInt();
 			if (kind == 1) {
-				account = new Account();
+				account = new Account(AccountKind.SearchEngine);
 				account.getUserInput(input);
 				accounts.add(account);
 				break;
 			}
 			else if (kind == 2) {
-				account = new TransportAccount();
+				account = new TransportAccount(AccountKind.Transport);
+				account.getUserInput(input);
+				accounts.add(account);
+				break;
+			}
+			else if (kind == 3) {
+				account = new BankAccount(AccountKind.Bank);
 				account.getUserInput(input);
 				accounts.add(account);
 				break;

@@ -11,6 +11,10 @@ public class Account {
 	
 	public Account() {
 	}
+	
+	public Account(AccountKind kind) {
+		this.kind = kind;
+	}
 
 	public Account(String name, String id) {
 		this.name = name;
@@ -18,6 +22,14 @@ public class Account {
 	}
 	
 	public Account(String name, String id, String email, String phone) {
+		this.name = name;
+		this.id = id;
+		this.password = password;
+		this.email = email;
+	}
+	
+	public Account(AccountKind kind, String name, String id, String email, String phone) {
+		this.kind = kind;
 		this.name = name;
 		this.id = id;
 		this.password = password;
@@ -64,8 +76,25 @@ public class Account {
 		this.email = email;
 	}
 
+	
 	public void printInfo() {
-		System.out.println("name:" + name + " id:" + id + " password:" + password + " email:" + email);
+		String skind = "none";
+		switch(this.kind) {
+		case SearchEngine:
+			skind = "Search";
+			break;
+		case Transport:
+			skind = "Trans";
+			break;
+		case Games:
+			skind = "Game";
+			break;
+		case Bank:
+			skind = "Bank";
+			break;
+		default:
+		}
+		System.out.println("kind:" + skind + " name:" + name + " id:" + id + " password:" + password + " email:" + email);
 	}
 	
 	public void getUserInput(Scanner input) {
