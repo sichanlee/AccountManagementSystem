@@ -7,29 +7,34 @@ public class MenuManager {
 		
 		int num = -1;
 		while (num != 5) {
-			System.out.println("*** Account Management System Menu ***");
-			System.out.println(" 1. Add Account");
-			System.out.println(" 2. Delete Account");
-			System.out.println(" 3. Edit Account");
-			System.out.println(" 4. View Accounts");
-			System.out.println(" 5. Exit");
-			System.out.println("Select one number between 1 - 5:");
+			showMenu();
 			num = input.nextInt();
-			if (num == 1) {
+			switch(num) {
+			case 1:
 				accountManager.addAccount();
-			}
-			else if (num == 2) {
+				break;
+			case 2:
 				accountManager.deleteAccount();
-			}
-			else if (num == 3) {
+				break;
+			case 3:
 				accountManager.editAccount();
-			}
-			else if (num == 4) {
+				break;
+			case 4:
 				accountManager.viewAccounts();
-			}
-			else {
+				break;
+			default:
 				continue;
 			}
 		}
+	}
+	
+	public static void showMenu() {
+		System.out.println("*** Account Management System Menu ***");
+		System.out.println(" 1. Add Account");
+		System.out.println(" 2. Delete Account");
+		System.out.println(" 3. Edit Account");
+		System.out.println(" 4. View Accounts");
+		System.out.println(" 5. Exit");
+		System.out.println("Select one number between 1 - 5:");
 	}
 }

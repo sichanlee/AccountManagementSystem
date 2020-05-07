@@ -2,7 +2,7 @@ package Account;
 
 import java.util.Scanner;
 
-public class Account {	
+public abstract class Account implements AccountInput {	
 	protected AccountKind kind = AccountKind.SearchEngine;
 	protected String name;
 	protected String id;
@@ -75,9 +75,34 @@ public class Account {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 	
-	public void printInfo() {
+	public abstract void printInfo();
+	
+	public void setAccountName(Scanner input) {
+		System.out.print("Website name:");
+		String name = input.next();
+		this.setName(name);
+	}
+	
+	public void setAccountID(Scanner input) {
+		System.out.print("Account ID:");
+		String id = input.next();
+		this.setId(id);
+	}
+	
+	public void setAccountPassword(Scanner input) {
+		System.out.print("Account Password:");
+		String password = input.next();
+		this.setPassword(password);
+	}
+	
+	public void setAccountEmail( Scanner input) {
+		System.out.print("Account Email:");
+		String email = input.next();
+		this.setEmail(email);
+	}
+	
+	public String getKindString() {
 		String skind = "none";
 		switch(this.kind) {
 		case SearchEngine:
@@ -94,25 +119,7 @@ public class Account {
 			break;
 		default:
 		}
-		System.out.println("kind:" + skind + " name:" + name + " id:" + id + " password:" + password + " email:" + email);
-	}
-	
-	public void getUserInput(Scanner input) {
-		System.out.print("Website name:");
-		String name = input.next();
-		this.setName(name);
-		
-		System.out.print("Account ID:");
-		String id = input.next();
-		this.setId(id);
-		
-		System.out.print("Account Password:");
-		String password = input.next();
-		this.setPassword(password);
-		
-		System.out.print("Account Email:");
-		String email = input.next();
-		this.setEmail(email);
+		return skind;
 	}
 	
 }
