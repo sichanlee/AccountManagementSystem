@@ -29,7 +29,7 @@ public class MenuManager {
 				}
 			}
 			catch(InputMismatchException e) {
-				System.out.println("Please insert number. p");
+				System.out.println("Please insert number.");
 				break;
 			}
 		}
