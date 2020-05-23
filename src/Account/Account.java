@@ -1,8 +1,14 @@
 package Account;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
-public abstract class Account implements AccountInput {	
+public abstract class Account implements AccountInput, Serializable {	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6508536289915649130L;
+	
 	protected AccountKind kind = AccountKind.SearchEngine;
 	protected String name;
 	protected String id;

@@ -1,17 +1,26 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Account.Account;
 import Account.AccountInput;
 import Account.AccountKind;
 import Account.BankAccount;
 import Account.GamesAccount;
 import Account.TransportAccount;
 
-public class AccountManager {
+public class AccountManager implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9035339470786679419L;
+	
 	ArrayList<AccountInput> accounts = new ArrayList<AccountInput>();
-	Scanner input;
+	transient Scanner input;
 	AccountManager(Scanner input) {
+		this.input = input;
+	}
+	
+	public void setScanner(Scanner input) {
 		this.input = input;
 	}
 	
