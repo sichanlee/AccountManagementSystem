@@ -1,7 +1,10 @@
+package manager;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import Account.Account;
 import Account.AccountInput;
 import Account.AccountKind;
 import Account.BankAccount;
@@ -13,57 +16,66 @@ public class AccountManager implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 9035339470786679419L;
-	
+
 	ArrayList<AccountInput> accounts = new ArrayList<AccountInput>();
 	transient Scanner input;
 	AccountManager(Scanner input) {
 		this.input = input;
 	}
-	
+
 	public void setScanner(Scanner input) {
 		this.input = input;
 	}
-	
+
 	public void addAccount() {
 		int kind = 0;
 		AccountInput accountInput;
-		while (kind != 1 && kind != 2) {
-			System.out.println("1 for SearchEngine");
-			System.out.println("2 for Transport");
-			System.out.println("3 for Bank");
-			System.out.print("Select num 1, 2 or 3 for Account Kind:");
-			kind = input.nextInt();
-			if (kind == 1) {
-				accountInput = new GamesAccount(AccountKind.SearchEngine);
-				accountInput.getUserInput(input);
-				accounts.add(accountInput);
-				break;
+		while (kind < 1 || kind > 3) {
+			try {
+				System.out.println("1 for SearchEngine");
+				System.out.println("2 for Transport");
+				System.out.println("3 for Bank");
+				System.out.print("Select num 1, 2 or 3 for Account Kind:");
+				kind = input.nextInt();
+				if (kind == 1) {
+					accountInput = new GamesAccount(AccountKind.SearchEngine);
+					accountInput.getUserInput(input);
+					accounts.add(accountInput);
+					break;
+				}
+				else if (kind == 2) {
+					accountInput = new TransportAccount(AccountKind.Transport);
+					accountInput.getUserInput(input);
+					accounts.add(accountInput);
+					break;
+				}
+				else if (kind == 3) {
+					accountInput = new BankAccount(AccountKind.Bank);
+					accountInput.getUserInput(input);
+					accounts.add(accountInput);
+					break;
+				}
+				else {
+					System.out.print("Select num for Account Kind between 1 and 2:");
+				}
 			}
-			else if (kind == 2) {
-				accountInput = new TransportAccount(AccountKind.Transport);
-				accountInput.getUserInput(input);
-				accounts.add(accountInput);
-				break;
-			}
-			else if (kind == 3) {
-				accountInput = new BankAccount(AccountKind.Bank);
-				accountInput.getUserInput(input);
-				accounts.add(accountInput);
-				break;
-			}
-			else {
-				System.out.print("Select num for Account Kind between 1 and 2:");
+			catch(InputMismatchException e) {
+				System.out.println("Please put an integer between 1 and 3!");
+				if (input.hasNext()) {
+					input.next();
+				}
+				kind = -1;
 			}
 		}
 	}
-	
+
 	public void deleteAccount() {
 		System.out.print("Website name:");
 		String websiteName = input.next();
 		int index = findIndex(websiteName);
 		removefromAccounts(index, websiteName);
 	}
-	
+
 	public int findIndex(String websiteName) {
 		int index = -1;
 		for (int i = 0; i<accounts.size(); i++) {
@@ -74,7 +86,7 @@ public class AccountManager implements Serializable {
 		}
 		return index;
 	}
-	
+
 	public void removefromAccounts(int index, String websiteName) {
 		if (index >= 0) {
 			accounts.remove(index);
@@ -86,7 +98,7 @@ public class AccountManager implements Serializable {
 			return;
 		}
 	}
-	
+
 	public void editAccount() {
 		System.out.print("Website name:");
 		String websiteName = input.next();	
@@ -118,16 +130,22 @@ public class AccountManager implements Serializable {
 			} // if
 		} // for
 	}
-	
+
 	public void viewAccounts() {
 		System.out.println("# of registered accounts:" + accounts.size());
 		for (int i = 0; i<accounts.size(); i++) {
 			accounts.get(i).printInfo();
 		}
 	}
-	
 
-	
+	public int size() {
+		return accounts.size();
+	}
+
+	public AccountInput get(int index) {
+		return (Account) accounts.get(index);
+	}
+
 	public void showEditMenu() {
 		System.out.println("** Account Info Edit Menu **");
 		System.out.println(" 1. Edit Name");
@@ -137,5 +155,5 @@ public class AccountManager implements Serializable {
 		System.out.println(" 5. Exit");
 		System.out.println("Select one number between 1 - 5:");
 	}
-	
+
 }
